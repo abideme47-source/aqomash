@@ -75,6 +75,53 @@ button { font: inherit; }
   font-size: clamp(4rem, 15vw, 9rem);
   animation: riseIn 1s ease-out both;
 }
+.hey-up {
+  animation: heyUp 0.8s ease-out both;
+  font-size: clamp(3rem, 12vw, 7rem);
+}
+.intro-sequence {
+  display: grid;
+  place-items: center;
+  gap: 0;
+  position: relative;
+}
+.black-overlay {
+  position: fixed;
+  inset: 0;
+  background: black;
+  z-index: 10;
+  animation: fadeOut 0.5s ease-out 0.8s forwards;
+}
+.intro-message {
+  position: absolute;
+  inset: 50% 6% auto;
+  margin: 0;
+  font-size: clamp(1.75rem, 7vw, 4.3rem);
+  line-height: 1.15;
+}
+.intro-message p {
+  position: absolute;
+  inset: 50% 6% auto;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(50vh);
+  transition: 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.intro-message p.visible {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+.intro-message p:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+@keyframes heyUp {
+  from { opacity: 1; transform: translateY(-50%); }
+  to { opacity: 1; transform: translateY(-120px); }
+}
+@keyframes fadeOut {
+  to { opacity: 0; pointer-events: none; }
+}
 .story {
   width: 100%;
   font-size: clamp(1.75rem, 7vw, 4.3rem);

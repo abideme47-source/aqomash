@@ -13,6 +13,8 @@ type Scene =
   | "preview"
   | "finish";
 
+type IntroPhase = "black" | "hey" | "hey-up" | "message-1" | "message-2";
+
 const days = Array.from({ length: 35 }, (_, index) => {
   const value = index - 4;
   return value > 0 && value <= 31 ? value : null;
@@ -109,15 +111,41 @@ function Camera({ onCapture }: { onCapture: (image?: string) => void }) {
 
 export default function App() {
   const [scene, setScene] = useState<Scene>("intro");
+  const [introPhase, setIntroPhase] = useState<IntroPhase>("black");
   const [messageStep, setMessageStep] = useState(0);
   const [rejectNote, setRejectNote] = useState("");
   const [photo, setPhoto] = useState<string>();
 
   useEffect(() => {
-    if (scene === "intro") {
-      const timer = window.setTimeout(() => setScene("message"), 1300);
-      return () => window.clearTimeout(timer);
-    }
+    if (scene !== "intro") return;
+
+    const timers: number[] = [];
+
+    // Phase 1: Black screen for 0.8s, then "hey" appears
+    timers.push(
+      window.setTimeout(() => setIntroPhase("hey"), 800)
+    );
+
+    // Phase 2: After 1s more (1.8s total), "hey" moves up, message-1 slides in
+    timers.push(
+      window.setTimeout(() => setIntroPhase("hey-up"), 1800)
+    );
+
+    // Phase 3: After 4.5s total, message changes to message-2
+    timers.push(
+      window.setTimeout(() => setIntroPhase("message-2"), 4500)
+    );
+
+    // Phase 4: After message-2 shows for a bit, transition to flower scene
+    timers.push(
+      window.setTimeout(() => setScene("flower"), 7000)
+    );
+
+    return () => timers.forEach(t => window.clearTimeout(t));
+  }, [scene]);
+
+  // Keep the existing message/flower/etc scene transitions
+  useEffect(() => {
     if (scene === "message" && messageStep < 3) {
       const timer = window.setTimeout(() => setMessageStep((step) => step + 1), 1900);
       return () => window.clearTimeout(timer);
@@ -156,7 +184,22 @@ export default function App() {
       )}
 
       <section className="content" aria-live="polite">
-        {scene === "intro" && <h1 className="hey">HEY!</h1>}
+        {scene === "intro" && (
+          <div className="intro-sequence">
+            {introPhase === "black" && <div className="black-overlay" />}
+            <h1 className={`hey ${introPhase === "hey-up" ? "hey-up" : ""}`}>
+              {introPhase === "hey-up" || introPhase === "message-1" || introPhase === "message-2" ? "hey" : "HEY!"}
+            </h1>
+            <div className="intro-message">
+              <p className={introPhase === "message-1" || introPhase === "message-2" ? "visible" : ""}>
+                Sooo, i thought about making this gift/design or bcha mnm beyw
+              </p>
+              <p className={introPhase === "message-2" ? "visible" : ""}>
+                Bcuz i like doing things abt u and also with u
+              </p>
+            </div>
+          </div>
+        )}
 
         {scene === "message" && (
           <div className="story">
