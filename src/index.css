@@ -1,0 +1,260 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Geist:Regular";
+  src: url("https://static.figma.com/font/Geist_wght__1") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Merienda One:Regular";
+  src: url("https://static.figma.com/font/MeriendaOne-Regular_1") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Metrophobic:Regular";
+  src: url("https://static.figma.com/font/Metrophobic-Regular_3") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+
+:root {
+  font-family: "Metrophobic:Regular", Arial, sans-serif;
+  color: white;
+  background: #f55191;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 280px; }
+button { font: inherit; }
+
+.app {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+}
+.paper {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.rose {
+  position: fixed;
+  z-index: -2;
+  width: min(165vw, 920px);
+  max-width: none;
+  height: auto;
+  left: 50%;
+  bottom: -18%;
+  transform: translateX(-50%);
+  animation: roseIn 1.3s cubic-bezier(.2,.8,.2,1) both;
+}
+.content {
+  width: min(100%, 700px);
+  min-height: 100dvh;
+  padding: clamp(24px, 6vw, 64px) clamp(18px, 5vw, 44px);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.hey, .choice h2, .reveal, .big-message, .story, .button-row button {
+  font-family: "MGF Pinlock Personal Use:Regular", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+}
+.hey {
+  margin: 0;
+  font-size: clamp(4rem, 15vw, 9rem);
+  animation: riseIn 1s ease-out both;
+}
+.story {
+  width: 100%;
+  font-size: clamp(1.75rem, 7vw, 4.3rem);
+  line-height: 1.15;
+}
+.story p {
+  position: absolute;
+  inset: 50% 6% auto;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(50vh);
+  transition: 1s ease;
+}
+.story p.visible {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+.reveal {
+  align-self: start;
+  margin-top: 5vh;
+  font-size: clamp(2.3rem, 9vw, 6rem);
+  line-height: 1.08;
+  animation: riseIn .8s both;
+}
+.reveal p { margin: .25em 0; animation: pop .7s both; }
+.reveal p:nth-child(2) { animation-delay: .7s; }
+.reveal p:nth-child(3) { animation-delay: 1.4s; }
+.choice { width: 100%; align-self: start; margin-top: 4vh; }
+.choice h2 {
+  margin: 0 0 24px;
+  font-size: clamp(2.4rem, 8vw, 5rem);
+  line-height: 1.05;
+}
+.flower-choice { align-self: end; margin-bottom: 8vh; }
+.button-row { display: flex; gap: clamp(12px, 4vw, 26px); justify-content: center; }
+.button-row button {
+  border: 0;
+  color: white;
+  border-radius: clamp(20px, 5vw, 52px);
+  font-size: clamp(2rem, 7vw, 4.5rem);
+  line-height: 1;
+  padding: .25em .48em .33em;
+  cursor: pointer;
+  box-shadow: 0 8px 20px #8e0c4638;
+  transition: transform .2s ease;
+}
+.button-row button:active { transform: scale(.94); }
+.yes { background: #fb569a; }
+.no { background: #df090d; }
+.note {
+  font-family: "Metrophobic:Regular", sans-serif;
+  font-size: clamp(1.15rem, 4vw, 2.3rem);
+  line-height: 1.25;
+  margin: 16px auto 0;
+  animation: pop .4s both;
+}
+.big-message {
+  font-size: clamp(2.7rem, 9vw, 6rem);
+  line-height: 1.12;
+  align-self: start;
+}
+.big-message p { margin: .2em 0; animation: riseIn .8s both; }
+.big-message p:nth-child(2) { animation-delay: .6s; }
+.big-message p:nth-child(3) { animation-delay: 1.3s; }
+.date-story {
+  margin: 0;
+  font-size: clamp(1.35rem, 5.5vw, 3rem);
+  line-height: 1.25;
+  align-self: start;
+  animation: riseIn .9s both;
+}
+.names {
+  position: fixed;
+  z-index: -1;
+  inset: 35% auto auto 3%;
+  display: grid;
+  gap: 4vh;
+  color: rgba(255,255,255,.55);
+  font-family: "Merienda One:Regular", serif;
+  font-size: clamp(3.5rem, 13vw, 7rem);
+  line-height: 1;
+  text-align: left;
+}
+.date-choice { z-index: 3; }
+.calendar-scene { align-self: start; width: min(100%, 520px); }
+.calendar-scene h2 {
+  margin: 0 0 16px;
+  font-size: clamp(2.4rem, 9vw, 5rem);
+}
+.calendar {
+  background: white;
+  color: #1f1f1f;
+  padding: clamp(14px, 4vw, 26px);
+  border: 1px solid #d9d9d9;
+  border-radius: 24px;
+  box-shadow: 0 18px 45px #a91c5a44;
+  width: 100%;
+}
+.calendar-head, .week, .days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: center;
+}
+.calendar-head { grid-template-columns: 40px 1fr 40px; margin-bottom: 12px; }
+.calendar-head button, .days button {
+  border: 0; background: transparent; color: inherit; cursor: pointer;
+}
+.calendar-head button { font-size: 2rem; }
+.week span { color: #777; font-size: .85rem; padding: 8px 0; }
+.days > * {
+  display: grid; place-items: center; aspect-ratio: 1;
+  border-radius: 50%; font-size: clamp(.85rem, 3.5vw, 1.1rem);
+}
+.days button:hover { background: #f5f5f5; }
+.days button.selected { background: #2c2c2c; color: white; }
+.camera-scene { align-self: start; width: 100%; }
+.camera-scene > p {
+  font-size: clamp(1.7rem, 7vw, 3.8rem);
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+.camera-panel { display: grid; place-items: center; gap: 14px; }
+.camera-button { border: 0; background: transparent; color: white; cursor: pointer; }
+.camera-button img { display: block; width: clamp(90px, 25vw, 180px); height: auto; margin: auto; }
+.camera-button span { display: block; margin-top: 8px; font-size: 1rem; }
+.camera-panel video, .preview img {
+  width: min(100%, 480px);
+  max-height: 58dvh;
+  border-radius: 24px;
+  object-fit: cover;
+  transform: scaleX(-1);
+  box-shadow: 0 14px 40px #62102f66;
+}
+.shutter {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: white; border: 7px solid #fb569a;
+  box-shadow: 0 0 0 4px white; cursor: pointer;
+}
+.camera-error { border: 0; border-radius: 16px; padding: 12px 18px; cursor: pointer; }
+.preview p {
+  font-size: clamp(1.6rem, 6vw, 3rem);
+  line-height: 1.2;
+}
+.finish {
+  align-self: start;
+  width: 100%;
+  font-size: clamp(2rem, 7.8vw, 4.8rem);
+  line-height: 1.25;
+}
+.finish p { margin: 0 0 1.2em; animation: riseIn 1s both; }
+.finish p:nth-child(2) { animation-delay: .7s; }
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(80px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes roseIn {
+  from { opacity: 0; transform: translate(-50%, 60%); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes pop {
+  from { opacity: 0; transform: scale(.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (min-width: 760px) {
+  .rose { width: min(95vw, 900px); bottom: -28%; }
+  .content { width: min(100%, 820px); }
+  .names { left: max(4%, calc(50% - 430px)); }
+}
+
+@media (max-height: 650px) {
+  .rose { bottom: -45%; }
+  .content { padding-block: 16px; }
+  .names { gap: 1vh; font-size: clamp(2.6rem, 11vh, 5rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}

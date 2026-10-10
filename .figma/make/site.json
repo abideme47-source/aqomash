@@ -1,0 +1,10 @@
+{
+  "description": "Interactive web platform featuring dynamic flows with timed and click-triggered transitions plus responsive calendar and camera icons for seamless user engagement.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
