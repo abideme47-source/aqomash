@@ -188,7 +188,7 @@ export default function App() {
           <div className="intro-sequence">
             {introPhase === "black" && <div className="black-overlay" />}
             <h1 className={`hey ${introPhase === "hey-up" ? "hey-up" : ""}`}>
-              {introPhase === "hey-up" || introPhase === "message-1" || introPhase === "message-2" ? "hey" : "HEY!"}
+              HEY!
             </h1>
             <div className="intro-message">
               <p className={introPhase === "message-1" || introPhase === "message-2" ? "visible" : ""}>
