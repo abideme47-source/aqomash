@@ -107,6 +107,10 @@ button { font: inherit; }
   opacity: 0;
   transform: translateY(50vh);
   transition: 1s cubic-bezier(0.16, 1, 0.3, 1);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 .intro-message p.visible {
   opacity: 1;
